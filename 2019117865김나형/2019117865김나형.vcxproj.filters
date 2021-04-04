@@ -36,9 +36,4 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="MAKEFILE">
-      <Filter>소스 파일</Filter>
-    </None>
-  </ItemGroup>
 </Project>

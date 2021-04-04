@@ -12,7 +12,7 @@
 /* states in scanner DFA */
 typedef enum
 {
-	START, INEQ, INCOMMENT, INNUM, INID, DONE, INLT, INGT, INNE, INOVER, INCOMMENT_
+	START, INEQ, INCOMMENT, INNUM, INID, DONE, INLT, INGT, INNE, INOVER
 }
 StateType;
 
@@ -110,14 +110,6 @@ TokenType getToken(void)
 			else if ((c == ' ') || (c == '\t') || (c == '\n'))
 				save = FALSE;
 
-			/* '{' TOKEN WOULD BE NOT USED FOR COMMENTS
-			else if (c == '{')
-			{
-				save = FALSE;
-				state = INCOMMENT;
-			}
-			*/
-
 			else if (c == '/')
 			{
 				save = FALSE;
@@ -213,7 +205,7 @@ TokenType getToken(void)
 		case INOVER:
 			if (c == '*') // COMMENTS(/* */)
 			{
-				state = INCOMMENT_;
+				state = INCOMMENT;
 				save = FALSE;
 			}
 			else // DIVISION(/)
@@ -271,7 +263,7 @@ TokenType getToken(void)
 
 
 			// MAKE THE COMMENTS IGNORED WHEN PARSING
-		case INCOMMENT_:
+		case INCOMMENT:
 			save = FALSE;
 			if (c == '*')
 			{
@@ -293,18 +285,6 @@ TokenType getToken(void)
 			}
 			break;
 
-			/* NOT USED ANYMORE
-			case INCOMMENT:
-				save = FALSE;
-				if (c == EOF)
-				{
-					state = DONE;
-					currentToken = ENDFILE;
-				}
-				else if (c == '}') state = START;
-				break;
-			*/
-
 		case INNUM:
 			if (!isdigit(c))
 			{ /* backup in the input */
@@ -312,6 +292,10 @@ TokenType getToken(void)
 				save = FALSE;
 				state = DONE;
 				currentToken = NUM;
+				if (isalpha(c)) {
+					state = DONE;
+					currentToken = ERROR;
+				}
 			}
 			break;
 		case INID:
@@ -321,15 +305,10 @@ TokenType getToken(void)
 				save = FALSE;
 				state = DONE;
 				currentToken = ID;
-			}
-			break;
-		case IF:
-			if (!isalpha(c))
-			{ /* backup in the input */
-				ungetNextChar();
-				save = FALSE;
-				state = DONE;
-				currentToken = IF;
+				if (isdigit(c)) {
+					state = DONE;
+					currentToken = ID;
+				}
 			}
 			break;
 		case DONE:

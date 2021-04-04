@@ -1,1 +1,3 @@
-if (score!= 200) /* this includes error **/ num = 98F;
+xyz != 10 /* comment¡¦. */
+xyz!/* comment¡¦. */ = 10
+x + y
