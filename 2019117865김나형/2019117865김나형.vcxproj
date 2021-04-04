@@ -123,9 +123,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1.c" />
-    <ClCompile Include="2.c" />
-    <ClCompile Include="scan.c" />
+    <ClCompile Include="MAIN.C" />
+    <ClCompile Include="SCAN.C" />
+    <ClCompile Include="UTIL.C">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLOBALS.H" />
+    <ClInclude Include="SCAN.H" />
+    <ClInclude Include="UTIL.H">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MAKEFILE" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

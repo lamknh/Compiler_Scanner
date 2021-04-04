@@ -15,14 +15,30 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="scan.c">
+    <ClCompile Include="MAIN.C">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="1.c">
+    <ClCompile Include="SCAN.C">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="2.c">
+    <ClCompile Include="UTIL.C">
       <Filter>소스 파일</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GLOBALS.H">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SCAN.H">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UTIL.H">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MAKEFILE">
+      <Filter>소스 파일</Filter>
+    </None>
   </ItemGroup>
 </Project>
