@@ -288,24 +288,28 @@ TokenType getToken(void)
 		case INNUM:
 			if (!isdigit(c))
 			{ /* backup in the input */
-				ungetNextChar();
-				save = FALSE;
-				state = DONE;
-				currentToken = NUM;
 				if (isalpha(c)) {
-					state = DONE;
+					save = TRUE;
 					currentToken = ERROR;
+				}
+				else {
+					ungetNextChar();
+					save = FALSE;
+					state = DONE;
+					currentToken = NUM;
 				}
 			}
 			break;
 		case INID:
 			if (!isalpha(c))
 			{ /* backup in the input */
-				ungetNextChar();
-				save = FALSE;
-				state = DONE;
-				currentToken = ID;
 				if (isdigit(c)) {
+					save = TRUE;
+					currentToken = ERROR;
+				}
+				else {
+					ungetNextChar();
+					save = FALSE;
 					state = DONE;
 					currentToken = ID;
 				}
