@@ -48,7 +48,7 @@ int Error = FALSE;
 
 main( int argc, char * argv[] )
 { TreeNode * syntaxTree;
-  char pgm[120]="1.c"; /* source code file name */
+  char pgm[120]; /* source code file name */
   if (argc != 2)
     { fprintf(stderr,"usage: %s <filename>\n",argv[0]);
       exit(1);

@@ -76,8 +76,6 @@ typedef struct treeNode
 		struct ScopeListRec* scope;
 	} attr;
 	ExpType type; /* for type checking of exps */
-	int isParam;
-	int arraysize;
 } TreeNode;
 
 /**************************************************/

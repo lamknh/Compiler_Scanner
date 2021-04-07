@@ -31,6 +31,30 @@ static int EOF_flag = FALSE; /* corrects ungetNextChar behavior on EOF */
 							 /* getNextChar fetches the next non-blank character
 							 from lineBuf, reading in a new line if lineBuf is
 							 exhausted */
+static int getBeforeChar(void)
+{
+	if (!(linepos < bufsize))
+	{
+		lineno++;
+		if (fgets(lineBuf, BUFLEN - 1, source))
+		{
+			if (EchoSource) fprintf(listing, "%4d: %s", lineno, lineBuf);
+			bufsize = strlen(lineBuf);
+			linepos = 0;
+			return lineBuf[linepos++];
+		}
+		else
+		{
+			lineno--;
+			EOF_flag = TRUE;
+			return EOF;
+		}
+	}
+	else {
+		return lineBuf[linepos - 1];
+	}
+}
+
 static int getNextChar(void)
 {
 	if (!(linepos < bufsize))
@@ -93,7 +117,6 @@ TokenType getToken(void)
 	/* current state - always begins at START */
 	StateType state = START;
 	/* flag to indicate save to tokenString */
-	char rtn = "return";
 
 	int save;
 	while (state != DONE)
@@ -289,30 +312,26 @@ TokenType getToken(void)
 			if (!isdigit(c))
 			{ /* backup in the input */
 				if (isalpha(c)) {
-					save = TRUE;
 					currentToken = ERROR;
 				}
-				else {
-					ungetNextChar();
-					save = FALSE;
-					state = DONE;
+				if (currentToken != ERROR) {
 					currentToken = NUM;
 				}
+				ungetNextChar();
+				save = FALSE;
+				state = DONE;
 			}
 			break;
 		case INID:
 			if (!isalpha(c))
 			{ /* backup in the input */
 				if (isdigit(c)) {
-					save = TRUE;
 					currentToken = ERROR;
 				}
-				else {
-					ungetNextChar();
-					save = FALSE;
-					state = DONE;
-					currentToken = ID;
-				}
+				currentToken = ID;
+				ungetNextChar();
+				save = FALSE;
+				state = DONE;
 			}
 			break;
 		case DONE:
