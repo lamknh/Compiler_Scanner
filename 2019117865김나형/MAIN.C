@@ -49,19 +49,30 @@ int Error = FALSE;
 main( int argc, char * argv[] )
 { TreeNode * syntaxTree;
   char pgm[120]; /* source code file name */
-  if (argc != 2)
-    { fprintf(stderr,"usage: %s <filename>\n",argv[0]);
+  if (argc != 3)
+    {
+	  fprintf(stderr,"usage: %s <filename>\n",argv[0]);
       exit(1);
     }
+
   strcpy(pgm,argv[1]) ;
   if (strchr (pgm, '.') == NULL)
      strcat(pgm,".tny");
   source = fopen(pgm,"r");
   if (source==NULL)
-  { fprintf(stderr,"File %s not found\n",pgm);
+  { 
+	  fprintf(stderr,"File %s not found\n",pgm);
     exit(1);
   }
-  listing = stdout; /* send listing to screen */
+
+  FILE* fp = fopen(argv[2], "at");
+
+  if (fp == NULL) {
+	  printf("스트림 생성시 오류발생");
+	  return 1;
+  }
+
+  listing = fp; /* send listing to file */
   fprintf(listing,"\nC MINUS COMPILATION: %s\n",pgm);
 #if NO_PARSE
   while (getToken()!=ENDFILE);
@@ -98,6 +109,7 @@ main( int argc, char * argv[] )
 #endif
 #endif
   fclose(source);
+  fclose(fp);
   return 0;
 }
 

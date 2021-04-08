@@ -317,7 +317,7 @@ TokenType getToken(void)
 			break;
 		case DONE:
 		default: /* should never happen */
-			fprintf(listing, "Scanner Bug: state= %d\n", state);
+			fputc(listing, "Scanner Bug: state= %d\n", state);
 			state = DONE;
 			currentToken = ERROR;
 			break;

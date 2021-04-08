@@ -44,17 +44,17 @@ void printToken( TokenType token, const char* tokenString )
 	case RETURN: fprintf(listing, "Reserved Word: return\n"); break;
 	case WHILE: fprintf(listing, "Reserved Word: while\n"); break;
     case NUM:
-      fprintf(listing, "NUM, val= %s\n",tokenString);
+		fprintf(listing, "NUM, val= %s\n",tokenString);
       break;
     case ID:
-      fprintf(listing, "ID, name= %s\n",tokenString);
+		fprintf(listing, "ID, name= %s\n",tokenString);
       break;
     case ERROR:
-      fprintf(listing, "ERROR: %s\n",tokenString);
+		fprintf(listing, "ERROR: %s\n",tokenString);
 		//fprintf(listing, "ERROR\n");
       break;
     default: /* should never happen */
-      fprintf(listing,"Unknown token: %d\n",token);
+		fprintf(listing,"Unknown token: %d\n",token);
   }
 }
 
@@ -65,7 +65,7 @@ TreeNode * newStmtNode(StmtKind kind)
 { TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
   int i;
   if (t==NULL)
-    fprintf(listing,"Out of memory error at line %d\n",lineno);
+	  fputc(listing,"Out of memory error at line %d\n",lineno);
   else {
     for (i=0;i<MAXCHILDREN;i++) t->child[i] = NULL;
     t->sibling = NULL;
@@ -83,7 +83,7 @@ TreeNode * newExpNode(ExpKind kind)
 { TreeNode * t = (TreeNode *) malloc(sizeof(TreeNode));
   int i;
   if (t==NULL)
-    fprintf(listing,"Out of memory error at line %d\n",lineno);
+	  fprintf(listing,"Out of memory error at line %d\n",lineno);
   else {
     for (i=0;i<MAXCHILDREN;i++) t->child[i] = NULL;
     t->sibling = NULL;
@@ -105,7 +105,7 @@ char * copyString(char * s)
   n = strlen(s)+1;
   t = malloc(n);
   if (t==NULL)
-    fprintf(listing,"Out of memory error at line %d\n",lineno);
+	  fprintf(listing,"Out of memory error at line %d\n",lineno);
   else strcpy(t,s);
   return t;
 }
