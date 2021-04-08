@@ -313,8 +313,9 @@ TokenType getToken(void)
 			{ /* backup in the input */
 				if (isalpha(c)) {
 					currentToken = ERROR;
+					break;
 				}
-				if (currentToken != ERROR) {
+				else if(currentToken != ERROR){
 					currentToken = NUM;
 				}
 				ungetNextChar();
@@ -327,8 +328,11 @@ TokenType getToken(void)
 			{ /* backup in the input */
 				if (isdigit(c)) {
 					currentToken = ERROR;
+					break;
 				}
-				currentToken = ID;
+				else if(currentToken != ERROR){
+					currentToken = ID;
+				}
 				ungetNextChar();
 				save = FALSE;
 				state = DONE;
