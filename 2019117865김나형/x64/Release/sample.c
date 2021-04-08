@@ -1,4 +1,1 @@
-xyz != 10 /* comment¡¦. */
-abc111
-111abc
-aaa#111
+if (score!= 200) /* this includes error **/ num = 98F;

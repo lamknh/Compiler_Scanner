@@ -31,29 +31,6 @@ static int EOF_flag = FALSE; /* corrects ungetNextChar behavior on EOF */
 							 /* getNextChar fetches the next non-blank character
 							 from lineBuf, reading in a new line if lineBuf is
 							 exhausted */
-static int getBeforeChar(void)
-{
-	if (!(linepos < bufsize))
-	{
-		lineno++;
-		if (fgets(lineBuf, BUFLEN - 1, source))
-		{
-			if (EchoSource) fprintf(listing, "%4d: %s", lineno, lineBuf);
-			bufsize = strlen(lineBuf);
-			linepos = 0;
-			return lineBuf[linepos++];
-		}
-		else
-		{
-			lineno--;
-			EOF_flag = TRUE;
-			return EOF;
-		}
-	}
-	else {
-		return lineBuf[linepos - 1];
-	}
-}
 
 static int getNextChar(void)
 {
