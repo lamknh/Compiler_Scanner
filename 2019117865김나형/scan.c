@@ -13,7 +13,7 @@
 typedef enum
 {
 	START, INEQ, INCOMMENT, INNUM, INID, DONE, INLT, INGT, INNE, INOVER
-}
+} // 필요 상태(state) 수정
 StateType;
 
 /* lexeme of identifier or reserved word */
@@ -66,8 +66,9 @@ static struct
 	char* str;
 	TokenType tok;
 } reservedWords[MAXRESERVED]
-= { // 6 RESERVED WORDS WILL BE USED
-	{ "if",IF },{ "else",ELSE },{ "while",WHILE },{ "return",RETURN },{ "int",INT },{ "void",VOID } };
+= { // RESERVED WORDS(예약어) 수정
+	{ "if",IF },{ "else",ELSE },{ "while",WHILE },
+{ "return",RETURN },{ "int",INT },{ "void",VOID } };
 
 /* lookup an identifier to see if it is a reserved word */
 /* uses linear search */
@@ -201,7 +202,7 @@ TokenType getToken(void)
 			}
 			break;
 
-			// CLASSIFY COMMENTS(/* */) AND DIVISION(/)
+			// COMMENTS 와 DIVISION(/) 분류
 		case INOVER:
 			if (c == '*') // COMMENTS(/* */)
 			{
@@ -216,7 +217,7 @@ TokenType getToken(void)
 			}
 			break;
 
-			// CLASSIFY ASSIGN(=) AND EQUALITY(==)
+			// ASSIGN(=) 과 EQUALITY(==) 분류
 		case INEQ:
 			state = DONE;
 			if (c == '=') // EQUALITY(==)
@@ -228,7 +229,7 @@ TokenType getToken(void)
 			}
 			break;
 
-			// CLASSIFY LESS THAN(<) AND LESS EQUAL(<=)
+			// LESS THAN(<) 과 LESS EQUAL(<=) 분류
 		case INLT:
 			state = DONE;
 			if (c == '=') // LESS EQUAL(<=)
@@ -240,7 +241,7 @@ TokenType getToken(void)
 			}
 			break;
 
-			// CLASSIFY GREATER THAN(>) AND GREATER EQUAL(>=)
+			// GREATER THAN(>) 과 GREATER EQUAL(>=) 구분
 		case INGT:
 			state = DONE;
 			if (c == '=') // GREATER EQUAL(>=)
@@ -252,7 +253,7 @@ TokenType getToken(void)
 			}
 			break;
 
-			// CLASSIFY NOT EQUAL(!=) AND ERROR
+			// NOT EQUAL(!=) 과 ERROR 구분
 		case INNE:
 			state = DONE;
 			if (c == '=') // NOT EQUAL(!=)
@@ -262,7 +263,7 @@ TokenType getToken(void)
 			break;
 
 
-			// MAKE THE COMMENTS IGNORED WHEN PARSING
+			// 주석인 경우 체크 및 무시
 		case INCOMMENT:
 			save = FALSE;
 			if (c == '*')
@@ -291,7 +292,7 @@ TokenType getToken(void)
 				if (isalpha(c)) {
 					currentToken = ERROR;
 					break;
-				}
+				} // NUM과 ID 섞일 경우  ERROR로 체크
 				else if(currentToken != ERROR){
 					currentToken = NUM;
 				}
@@ -306,7 +307,7 @@ TokenType getToken(void)
 				if (isdigit(c)) {
 					currentToken = ERROR;
 					break;
-				}
+				} // NUM과 ID 섞일 경우  ERROR로 체크
 				else if(currentToken != ERROR){
 					currentToken = ID;
 				}
